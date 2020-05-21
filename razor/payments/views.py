@@ -37,6 +37,7 @@ def create_order(request):
         notes = {
             'Shipping address': 'Bommanahalli, Bangalore'}
 
+        # CREAING ORDER
         response = client.order.create(dict(amount=order_amount, currency=order_currency, receipt=order_receipt, notes=notes, payment_capture='0'))
         order_id = response['id']
         order_status = response['status']
@@ -66,10 +67,17 @@ def payment_status(request):
 
     response = request.POST
 
-    context = {
+    params_dict = {
         'razorpay_payment_id' : response['razorpay_payment_id'],
         'razorpay_order_id' : response['razorpay_order_id'],
         'razorpay_signature' : response['razorpay_signature']
     }
-    return render(request, 'order_summary.html', context)
+
+
+    # VERIFYING SIGNATURE
+    try:
+        status = client.utility.verify_payment_signature(params_dict)
+        return render(request, 'order_summary.html', {'status': 'Payment Successful'})
+    except:
+        return render(request, 'order_summary.html', {'status': 'Payment Faliure!!!'})
 
