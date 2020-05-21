@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 import razorpay
@@ -62,7 +61,7 @@ def create_order(request):
     return HttpResponse('<h1>Error in  create order function</h1>')
 
 
-@csrf_exempt
+
 def payment_status(request):
 
     response = request.POST
