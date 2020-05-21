@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 import razorpay
-client = razorpay.Client(auth=("rzp_test_958Rc9DTUDiOTn", "qmKCrAigSPvkp8o4Hfmt3Ksf"))
+client = razorpay.Client(auth=("Key_ID", "SECRET_KEY"))
 
 
 def testing(request):
